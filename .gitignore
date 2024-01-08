@@ -18,3 +18,8 @@ tsconfig.tsbuildinfo
 .vscode
 
 npm-debug.log*
+
+out
+/out
+./out
+.out
