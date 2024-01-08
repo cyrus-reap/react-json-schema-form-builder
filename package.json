@@ -21,14 +21,17 @@
     "react": "^18.2.0",
     "react-bootstrap": "^1.6.4",
     "react-dom": "^18.2.0",
-    "react-json-editor-ajrm": "^2.5.14"
+    "react-json-editor-ajrm": "^2.5.14",
+    "reactstrap": "^9.2.1"
   },
   "devDependencies": {
     "@babel/plugin-syntax-object-rest-spread": "^7.8.3",
     "@next/eslint-plugin-next": "^14.0.4",
+    "@types/node": "20.10.7",
     "@types/react": "^18.2.41",
     "next": "^14.0.4",
-    "rimraf": "^5.0.5"
+    "rimraf": "^5.0.5",
+    "typescript": "5.3.3"
   },
   "browserslist": [
     ">0.2%",
