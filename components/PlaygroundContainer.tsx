@@ -26,9 +26,10 @@ export default function PlaygroundContainer({ title }: { title: string }) {
   const [uischema, setUischema] = React.useState(
     JSON.stringify(initialUiSchema),
   );
+
   const classes = useStyles();
   return (
-    <div className='playground'>
+    <div className='playground' style={{ padding: '2em' }}>
       <h1>{title}</h1>
       <JsonSchemaFormSuite
         lang={'json'}
