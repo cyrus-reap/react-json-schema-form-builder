@@ -282,7 +282,7 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
               ),
             },
             {
-              name: 'Edit Schema',
+              name: 'Copy Schema',
               id: 'editors',
               content: (
                 <div
@@ -299,31 +299,42 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                   >
                     <ErrorBoundary
                       onErr={(err: string) => {
-                        // if rendering initial value causes a crash
-                        // eslint-disable-next-line no-console
                         console.error(err);
                         this.updateSchema('{}');
                       }}
                       errMessage={'Error parsing JSON Schema input'}
                     >
-                      <h4>Data Schema</h4>
-                      <JSONInput
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginBottom: '1em',
+                        }}
+                      >
+                        <h4>Data Schema </h4>
+                        <button
+                          style={{
+                            marginLeft: '1em',
+                            color: 'white',
+                            backgroundColor: '#E41F33',
+                            borderRadius: '5px',
+                            padding: '0.5em 1em',
+                            fontSize: '0.8em',
+                            border: 'none',
+                          }}
+                          onClick={() => {
+                            navigator.clipboard.writeText(this.props.uischema);
+                          }}
+                        >
+                          Copy
+                        </button>
+                      </div>
+                      <textarea
                         id='data_schema'
-                        placeholder={
-                          this.props.schema
-                            ? (() => {
-                                try {
-                                  return JSON.parse(this.props.schema);
-                                } catch (e) {
-                                  console.error(e);
-                                  return {};
-                                }
-                              })()
-                            : {}
-                        }
-                        locale={locale}
-                        height='550px'
-                        onChange={(data: any) => this.updateSchema(data.json)}
+                        readOnly
+                        value={this.props.schema ? this.props.schema : '{}'}
+                        style={{ width: '100%', height: '550px' }}
                       />
                     </ErrorBoundary>
                     <br />
@@ -334,24 +345,42 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                   >
                     <ErrorBoundary
                       onErr={(err: string) => {
-                        // if rendering initial value causes a crash
-                        // eslint-disable-next-line no-console
                         console.error(err);
                         this.updateUISchema('{}');
                       }}
                       errMessage={'Error parsing JSON UI Schema input'}
                     >
-                      <h4>UI Schema</h4>
-                      <JSONInput
+                      <div
+                        style={{
+                          display: 'flex',
+                          flexDirection: 'row',
+                          alignItems: 'center',
+                          marginBottom: '1em',
+                        }}
+                      >
+                        <h4>UI Schema</h4>
+                        <button
+                          style={{
+                            marginLeft: '1em',
+                            color: 'white',
+                            backgroundColor: '#E41F33',
+                            borderRadius: '5px',
+                            padding: '0.5em 1em',
+                            fontSize: '0.8em',
+                            border: 'none',
+                          }}
+                          onClick={() => {
+                            navigator.clipboard.writeText(this.props.uischema);
+                          }}
+                        >
+                          Copy
+                        </button>
+                      </div>
+                      <textarea
                         id='ui_schema'
-                        placeholder={
-                          this.props.uischema
-                            ? JSON.parse(this.props.uischema)
-                            : {}
-                        }
-                        locale={locale}
-                        height='550px'
-                        onChange={(data: any) => this.updateUISchema(data.json)}
+                        readOnly
+                        value={this.props.uischema ? this.props.uischema : '{}'}
+                        style={{ width: '100%', height: '550px' }}
                       />
                     </ErrorBoundary>
                   </div>
