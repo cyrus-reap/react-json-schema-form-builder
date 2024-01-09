@@ -14,26 +14,10 @@ const useStyles = createUseStyles({
       marginLeft: '5em',
     },
   },
-  submitButton: {
-    backgroundColor: 'red',
-    color: 'black',
-    '&:hover': {
-      backgroundColor: '#0069d9',
-    },
-    border: 'none',
-    borderRadius: '4px',
-    padding: '10px 15px',
-    fontSize: '16px',
-    cursor: 'pointer',
-  },
 });
 
 const initialJsonSchema = {};
-const initialUiSchema = {
-  'ui:options': {
-    classNames: 'submitButton',
-  },
-};
+const initialUiSchema = {};
 const mods = {};
 
 export default function PlaygroundContainer({ title }) {
@@ -43,7 +27,6 @@ export default function PlaygroundContainer({ title }) {
   );
 
   const classes = useStyles();
-  initialUiSchema['ui:options'].classNames = classes.submitButton;
 
   return (
     <div className='playground' style={{ padding: '2em' }}>

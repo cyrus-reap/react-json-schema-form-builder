@@ -282,7 +282,7 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
               ),
             },
             {
-              name: 'Copy Schema',
+              name: 'Edit Schema',
               id: 'editors',
               content: (
                 <div
@@ -299,6 +299,8 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                   >
                     <ErrorBoundary
                       onErr={(err: string) => {
+                        // if rendering initial value causes a crash
+                        // eslint-disable-next-line no-console
                         console.error(err);
                         this.updateSchema('{}');
                       }}
@@ -330,11 +332,23 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                           Copy
                         </button>
                       </div>
-                      <textarea
+                      <JSONInput
                         id='data_schema'
-                        readOnly
-                        value={this.props.schema ? this.props.schema : '{}'}
-                        style={{ width: '100%', height: '550px' }}
+                        placeholder={
+                          this.props.schema
+                            ? (() => {
+                                try {
+                                  return JSON.parse(this.props.schema);
+                                } catch (e) {
+                                  console.error(e);
+                                  return {};
+                                }
+                              })()
+                            : {}
+                        }
+                        locale={locale}
+                        height='550px'
+                        onChange={(data: any) => this.updateSchema(data.json)}
                       />
                     </ErrorBoundary>
                     <br />
@@ -345,6 +359,8 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                   >
                     <ErrorBoundary
                       onErr={(err: string) => {
+                        // if rendering initial value causes a crash
+                        // eslint-disable-next-line no-console
                         console.error(err);
                         this.updateUISchema('{}');
                       }}
@@ -376,11 +392,17 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                           Copy
                         </button>
                       </div>
-                      <textarea
+                      <JSONInput
                         id='ui_schema'
-                        readOnly
-                        value={this.props.uischema ? this.props.uischema : '{}'}
-                        style={{ width: '100%', height: '550px' }}
+                        placeholder={
+                          this.props.uischema
+                            ? JSON.parse(this.props.uischema)
+                            : {}
+                        }
+                        locale={locale}
+                        height='550px'
+                        onChange={(data: any) => this.updateUISchema(data.json)}
+                        disabled={true}
                       />
                     </ErrorBoundary>
                   </div>
