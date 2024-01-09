@@ -14,23 +14,45 @@ const useStyles = createUseStyles({
       marginLeft: '5em',
     },
   },
+  submitButton: {
+    backgroundColor: 'red',
+    color: 'black',
+    '&:hover': {
+      backgroundColor: '#0069d9',
+    },
+    border: 'none',
+    borderRadius: '4px',
+    padding: '10px 15px',
+    fontSize: '16px',
+    cursor: 'pointer',
+  },
 });
 
-// Can be used to set initial schemas and mods (useful for development)
 const initialJsonSchema = {};
-const initialUiSchema = {};
+const initialUiSchema = {
+  submitButton: {
+    'ui:widget': 'button',
+    'ui:options': {
+      classNames: 'submitButton',
+    },
+  },
+};
 const mods = {};
 
-export default function PlaygroundContainer({ title }: { title: string }) {
+export default function PlaygroundContainer({ title }) {
   const [schema, setSchema] = React.useState(JSON.stringify(initialJsonSchema));
   const [uischema, setUischema] = React.useState(
     JSON.stringify(initialUiSchema),
   );
 
   const classes = useStyles();
+  initialUiSchema.submitButton['ui:options'].classNames = classes.submitButton;
+
   return (
     <div className='playground' style={{ padding: '2em' }}>
-      <h1>{title}</h1>
+      <div className={classes.header}>
+        <h1>{title}</h1>
+      </div>
       <JsonSchemaFormSuite
         lang={'json'}
         schema={schema}
@@ -38,7 +60,7 @@ export default function PlaygroundContainer({ title }: { title: string }) {
         mods={mods}
         schemaTitle='Data Schema'
         uischemaTitle='UI Schema'
-        onChange={(newSchema: string, newUiSchema: string) => {
+        onChange={(newSchema, newUiSchema) => {
           setSchema(newSchema);
           setUischema(newUiSchema);
         }}
