@@ -30,11 +30,8 @@ const useStyles = createUseStyles({
 
 const initialJsonSchema = {};
 const initialUiSchema = {
-  submitButton: {
-    'ui:widget': 'button',
-    'ui:options': {
-      classNames: 'submitButton',
-    },
+  'ui:options': {
+    classNames: 'submitButton',
   },
 };
 const mods = {};
@@ -46,7 +43,7 @@ export default function PlaygroundContainer({ title }) {
   );
 
   const classes = useStyles();
-  initialUiSchema.submitButton['ui:options'].classNames = classes.submitButton;
+  initialUiSchema['ui:options'].classNames = classes.submitButton;
 
   return (
     <div className='playground' style={{ padding: '2em' }}>
