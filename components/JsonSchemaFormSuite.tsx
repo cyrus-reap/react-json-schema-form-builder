@@ -18,6 +18,7 @@ import Tabs from './tabs/Tabs';
 import JSONInput from 'react-json-editor-ajrm';
 import locale from 'react-json-editor-ajrm/locale/en';
 import ErrorBoundary from './ErrorBoundary';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 type Props = {
   lang: string;
@@ -40,6 +41,8 @@ type State = {
   validFormInput: boolean;
   editorWidth: number;
   submissionData: any;
+  copyToClipboard?: boolean;
+  copyToClipboard2?: boolean;
 };
 
 interface FormProps {
@@ -90,6 +93,8 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
       validFormInput: false,
       editorWidth: 700,
       submissionData: {},
+      copyToClipboard: false,
+      copyToClipboard2: false,
     };
   }
 
@@ -315,7 +320,8 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                         }}
                       >
                         <h4>Data Schema </h4>
-                        <button
+
+                        <CopyToClipboard
                           style={{
                             marginLeft: '1em',
                             color: 'white',
@@ -325,12 +331,19 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                             fontSize: '0.8em',
                             border: 'none',
                           }}
-                          onClick={() => {
-                            navigator.clipboard.writeText(this.props.schema);
+                          text={this.props.schema}
+                          onCopy={() => {
+                            this.setState({ copyToClipboard: true });
+
+                            setTimeout(() => {
+                              this.setState({ copyToClipboard: false });
+                            }, 2000);
                           }}
                         >
-                          Copy
-                        </button>
+                          <span>
+                            {this.state.copyToClipboard ? 'Copied!' : 'Copy'}
+                          </span>
+                        </CopyToClipboard>
                       </div>
                       <JSONInput
                         id='data_schema'
@@ -375,7 +388,7 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                         }}
                       >
                         <h4>UI Schema</h4>
-                        <button
+                        <CopyToClipboard
                           style={{
                             marginLeft: '1em',
                             color: 'white',
@@ -385,12 +398,19 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                             fontSize: '0.8em',
                             border: 'none',
                           }}
-                          onClick={() => {
-                            navigator.clipboard.writeText(this.props.uischema);
+                          text={this.props.uischema}
+                          onCopy={() => {
+                            this.setState({ copyToClipboard2: true });
+
+                            setTimeout(() => {
+                              this.setState({ copyToClipboard2: false });
+                            }, 2000);
                           }}
                         >
-                          Copy
-                        </button>
+                          <span>
+                            {this.state.copyToClipboard2 ? 'Copied!' : 'Copy'}
+                          </span>
+                        </CopyToClipboard>
                       </div>
                       <JSONInput
                         id='ui_schema'
