@@ -326,7 +326,7 @@ class JsonSchemaFormEditor extends React.Component<Props, State> {
                             border: 'none',
                           }}
                           onClick={() => {
-                            navigator.clipboard.writeText(this.props.uischema);
+                            navigator.clipboard.writeText(this.props.schema);
                           }}
                         >
                           Copy
